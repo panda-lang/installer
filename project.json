@@ -9,10 +9,10 @@
  "binaryname": "panda-installer.exe",
  "frontend": {
   "dir": "frontend",
-  "install": "npm install",
-  "build": "npm run build",
+  "install": "yarn",
+  "build": "yarn build",
   "bridge": "src",
-  "serve": "npm run serve"
+  "serve": "yarn serve"
  },
  "WailsVersion": ""
 }

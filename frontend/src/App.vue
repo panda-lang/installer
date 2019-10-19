@@ -1,16 +1,12 @@
-<template>
-  <div id="app">
-    <img alt="Panda Logo" src="./assets/images/panda.png" class="logo zoomIn">
-    <HelloWorld/>
-  </div>
+<template lang='pug'>
+#app
+  img.logo.zoomIn(alt='Padna logo', src='@/assets/images/panda.png')
 </template>
 
 <script>
-import "./assets/css/main.css";
+import './assets/css/main.styl'
 
 export default {
-  name: "app",
-  components: {
-  }
-};
+  name: 'app'
+}
 </script>
