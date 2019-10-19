@@ -1,6 +1,6 @@
 <template lang='pug'>
 #app
-  img.logo.zoomIn(alt='Padna logo', src='@/assets/images/panda.png')
+  img.logo.zoomIn(alt='Panda logo', src='@/assets/images/installer.png')
 </template>
 
 <script>
