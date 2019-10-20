@@ -8700,6 +8700,11 @@ utils-merge@1.0.1:
   resolved "https://registry.yarnpkg.com/utils-merge/-/utils-merge-1.0.1.tgz#9f95710f50a267947b2ccc124741c1028427e713"
   integrity sha1-n5VxD1CiZ5R7LMwSR0HBAoQn5xM=
 
+utilus@^2.0.1:
+  version "2.0.1"
+  resolved "https://registry.yarnpkg.com/utilus/-/utilus-2.0.1.tgz#fdc81c90055efe6ad2c455cbd38469fb8859264e"
+  integrity sha1-/cgckAVe/mrSxFXL04Rp+4hZJk4=
+
 uuid@^3.0.1, uuid@^3.3.2:
   version "3.3.3"
   resolved "https://registry.yarnpkg.com/uuid/-/uuid-3.3.3.tgz#4568f0216e78760ee1dbf3a4d2cf53e224112866"
