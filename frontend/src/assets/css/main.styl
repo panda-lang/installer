@@ -1,14 +1,19 @@
 #app
+  font-family sans
   -webkit-font-smoothing antialiased
   -moz-osx-font-smoothing grayscale
-  text-align center
   color #eee
   height 100%
+  font-size 12px
 
   > .row
     height 100%
+
     > .col
       height 100%
+
+      &:not(:first-child)
+        border-left 1px solid #919191
 
   .row
     display flex
@@ -16,8 +21,14 @@
     .col
       width 100%
 
-      &:not(:first-child)
-        border-left 1px solid #919191
+      &.auto
+        width auto
+
+    .col.main-frame
+      padding 57px
+
+      > .content
+        padding-top 57px
 
     .col.has-logo
       width auto
@@ -35,6 +46,60 @@ body
   height 100%
 
 .logo
-  size 200px
+  size 300px
   padding 50px
   display block
+
+.license-row
+  padding 27px _
+  > .col:first-child
+    text-align right
+    padding-right 7px
+    border-right 1px solid #919191
+    margin-right 7px
+
+  label
+    cursor pointer
+
+  input
+    display none
+
+
+.full-license
+  height 200px
+  overflow-y auto
+
+.pre
+  white-space pre
+
+.center
+  justify-content center
+
+.space-around
+  justify-content space-around
+
+.text-center
+  text-align center
+
+a
+.checked
+  color #53af59
+  text-decoration none
+
+.btn
+  border 0
+  border 1px solid #fff
+  color #53af59
+  background transparent
+  border-radius 7px
+  padding 7px 17px
+  display inline
+  cursor pointer
+
+  &[disabled]
+    border 1px solid #ddd
+    color #1a5f1e
+    pointer-events none
+
+*
+  box-sizing border-box
