@@ -3,7 +3,26 @@
   -moz-osx-font-smoothing grayscale
   text-align center
   color #eee
-  margin-top 60px
+  height 100%
+
+  > .row
+    height 100%
+    > .col
+      height 100%
+
+  .row
+    display flex
+
+    .col
+      width 100%
+
+      &:not(:first-child)
+        border-left 1px solid #919191
+
+    .col.has-logo
+      width auto
+      display flex
+      align-items center
 
 html
   height 100%
@@ -11,5 +30,11 @@ html
   background-color #2a2a2a
   background-size 20px 20px
 
+body
+  margin 0
+  height 100%
+
 .logo
-  width 20em
+  size 200px
+  padding 50px
+  display block
