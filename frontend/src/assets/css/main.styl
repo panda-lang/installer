@@ -1,10 +1,10 @@
+@import url('https://fonts.googleapis.com/css?family=Varela+Round&display=swap')
+
 #app
-  font-family sans
   -webkit-font-smoothing antialiased
   -moz-osx-font-smoothing grayscale
   color #eee
   height 100%
-  font-size 12px
 
   > .row
     height 100%
@@ -38,8 +38,10 @@
 html
   height 100%
   overflow hidden
-  background-color #2a2a2a
+  background-color #191919
   background-size 20px 20px
+  font-size 12px
+  font-family 'Varela Round', sans-serif
 
 body
   margin 0
@@ -81,25 +83,55 @@ body
 .text-center
   text-align center
 
-a
+.text-green
 .checked
   color #53af59
+
+.text-blue
+  color #0af
+
+.text-red
+  color #f44
+
+a
+  color #53af59
   text-decoration none
+  cursor pointer
 
 .btn
   border 0
-  border 1px solid #fff
   color #53af59
-  background transparent
-  border-radius 7px
-  padding 7px 17px
+  background #fff
+  padding 13px 37px
   display inline
   cursor pointer
 
   &[disabled]
-    border 1px solid #ddd
-    color #1a5f1e
+    opacity .5
     pointer-events none
 
 *
   box-sizing border-box
+
+p
+h1, h2, h3
+h4, h5, h6
+  margin 0
+  padding _ _ 1ch
+
+ul
+  padding 0
+  list-style none
+
+  li:not(:last-child)
+    padding _ _ 7px
+
+[class^='icon-']
+[class*=' icon-']
+  display inline
+  vertical-align top
+
+li
+  [class^='icon-']
+  [class*=' icon-']
+    padding-right 1ch

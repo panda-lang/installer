@@ -17,24 +17,24 @@
             .row
               ul.col
                 h3 Permissions
-                li Commercial use
-                li Modification
-                li Distribution
-                li Patent use
-                li Private use
+                li #[.icon-checkmark.text-green] Commercial use
+                li #[.icon-checkmark.text-green] Modification
+                li #[.icon-checkmark.text-green] Distribution
+                li #[.icon-checkmark.text-green] Patent use
+                li #[.icon-checkmark.text-green] Private use
               ul.col
                 h3 Restrictions
-                li Trademark use
-                li Liability
-                li Warranty
+                li #[.icon-restriction.text-red] Trademark use
+                li #[.icon-restriction.text-red] Liability
+                li #[.icon-restriction.text-red] Warranty
               ul.col
                 h3 Conditions
-                li License and copyright notice
-                li State changes
+                li #[.icon-star.text-blue] License and copyright notice
+                li #[.icon-star.text-blue] State changes
           .row.license-row
             .col
               a.pre(@click='showFullLicense = !showFullLicense')
-                | {{ showFullLicense ? 'Hide full license' : 'Read full License' }}
+                | {{ showFullLicense ? 'Hide full license' : 'Read full license' }}
             .col
               .row
                 .col
@@ -48,7 +48,8 @@
 
 <script>
 import { VStepper } from 'vue-stepper-component'
-import './assets/css/main.styl'
+import '@/assets/css/main.styl'
+import '@/assets/css/icons.css'
 
 export default {
   name: 'app',
