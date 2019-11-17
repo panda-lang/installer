@@ -1,5 +1,11 @@
 module.exports = {
   presets: [
-    '@vue/cli-plugin-babel/preset'
+    ['@vue/app', {
+      target: 'IE 10',
+      polyfills: [
+        'es.array.includes',
+        'es.array.from'
+      ]
+    }]
   ]
 }
