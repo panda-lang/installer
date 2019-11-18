@@ -146,14 +146,19 @@ li
 
 .v-stepper
   .title
-    color #191919 !importanmt
+    color #191919
+
   .divider
     margin-right 1rem
 
   .v-step
+    label
+      cursor auto !important
+
     &.is-active
       .index
         box-shadow 0.25rem 0.25rem 0.5rem rgba(228, 228, 228, 0.25)  !important
+
     &:not(.is-disabled):not(.is-active)
       .index
         border-color #53af59
