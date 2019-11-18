@@ -1,10 +1,13 @@
 <template lang='pug'>
 #app
   .row
-    .col.has-logo
+    // .col.has-logo
       img.logo(src='@/assets/images/installer.png')
     .col.main-frame
-      v-stepper(:steps='steps', v-model='step', ref='stepper')
+      v-stepper(:steps='steps', :value='step', ref='stepper')
+        template(slot='step-1') License
+        template(slot='step-2') Options
+        template(slot='step-3') Installation
 
       .content
         template(v-if='step === 1')
@@ -41,8 +44,11 @@
                   input#license(type='checkbox', v-model='licenseAgreed')
                   label(for='license') #[span(:class='{ checked: licenseAgreed }') {{ licenseAgreed ? '☑' : '☐' }}] I agree to the license
           .text-center
-            .btn(:disabled='!licenseAgreed', @click='licenseAgreed && $refs.stepper.next()') Next
-        template(v-if='step === 2') 2
+            .btn(:disabled='!licenseAgreed', @click='licenseAgreed && (step = 2)') Next
+        template(v-if='step === 2')
+          .text-center
+            .btn(@click='step = 1') Back
+            .btn(@click='step = 3') Next
         template(v-if='step === 3') 3
 </template>
 
@@ -59,7 +65,7 @@ export default {
   data () {
     return {
       steps: 3,
-      step: undefined,
+      step: 1,
       licenseAgreed: false,
       showFullLicense: false
     }

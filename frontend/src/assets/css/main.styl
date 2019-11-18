@@ -3,7 +3,7 @@
 #app
   -webkit-font-smoothing antialiased
   -moz-osx-font-smoothing grayscale
-  color #eee
+  color #191919
   height 100%
 
   > .row
@@ -39,7 +39,7 @@
 html
   height 100%
   overflow hidden
-  background-color #191919
+  background-color #fff
   background-size 20px 20px
   font-size 12px
   font-family 'Varela Round', sans-serif
@@ -106,10 +106,13 @@ a
 .btn
   border 0
   color #53af59
-  background #fff
+  background #eaffeb
   padding 13px 37px
   display inline
   cursor pointer
+
+  + .btn
+    margin-left 7px
 
   &[disabled]
     opacity .5
@@ -140,3 +143,38 @@ li
   [class^='icon-']
   [class*=' icon-']
     padding-right 1ch
+
+.v-stepper
+  .title
+    color #191919 !importanmt
+  .divider
+    margin-right 1rem
+
+  .v-step
+    &.is-active
+      .index
+        box-shadow 0.25rem 0.25rem 0.5rem rgba(228, 228, 228, 0.25)  !important
+    &:not(.is-disabled):not(.is-active)
+      .index
+        border-color #53af59
+        color #fff
+        box-shadow 0.25rem 0.25rem 0.5rem rgba(#53af59, .25)
+
+        &::after
+          content '✔'
+          display inline
+          color #53af59
+          text-indent -1ch
+
+  .v-step.is-active ~ .v-step
+    .index
+      border-color #f4f4f4  !important
+      box-shadow 0.25rem 0.25rem 0.5rem rgba(228, 228, 228, 0.25)  !important
+
+      &::after
+        display none !important
+
+      @css {
+        color: #b3b3b3 !important;
+      }
+
