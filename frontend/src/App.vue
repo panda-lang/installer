@@ -46,10 +46,35 @@
           .text-center
             .btn(:disabled='!licenseAgreed', @click='licenseAgreed && (step = 2)') Next
         template(v-if='step === 2')
+          h1 Options
+
+          h3 Installation type
+          h4 Local
+          .row
+            .col.auto
+              input(type='radio', id='if-u' value='user', v-model='options.installFor')
+            label.col(for='if-u') Install only for me
+          h4 Global
+          small.block.text-red(v-if='!hasAdminPriviledges', style='margin-bottom: 7px') This option is disabled due to lack of administrator priviledges
+          .row
+            .col.auto
+              input(type='radio', id='if-e', value='everyone', v-model='options.installFor', :disabled='!hasAdminPriviledges')
+            label.col(for='if-e', :class='{ disabled: !hasAdminPriviledges }') Install for everyone
+
+          h3 Installation path
+          .row
+            .col.auto
+              input(type='text', v-model='options.installPath', :disabled='!hasAdminPriviledges')
+            .col.auto
+              small.btn(:disabled='!hasAdminPriviledges') …
+
           .text-center
             .btn(@click='step = 1') Back
             .btn(@click='step = 3') Next
-        template(v-if='step === 3') 3
+
+        template(v-if='step === 3')
+            .btn(@click='step = 2') Back
+            .btn Install
 </template>
 
 <script>
@@ -67,7 +92,12 @@ export default {
       steps: 3,
       step: 1,
       licenseAgreed: false,
-      showFullLicense: false
+      showFullLicense: false,
+      hasAdminPriviledges: false,
+      options: {
+        installPath: '',
+        installFor: 'user'
+      }
     }
   }
 }
