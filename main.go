@@ -26,19 +26,18 @@ func main() {
 		Colour: "#131313",
 	})
 
-	err := app.Run()
+	pandaInstallation, err := CreatePandaInstallation()
 
 	if err != nil {
 		panic(err)
 	}
 
-	pandaInstallation, err := CreatePandaInstallation()
+	app.Bind(pandaInstallation)
+	err = app.Run()
 
 	if err != nil {
-		log.Error(err)
+		panic(err)
 	}
-
-	app.Bind(pandaInstallation)
 }
 
 type PandaInstallation interface {
