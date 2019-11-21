@@ -43,6 +43,7 @@ func main() {
 
 type PandaInstallation interface {
 	StartInstall(jsonOptions string) error
+	HasAdminPrivileges() bool
 }
 
 func CreatePandaInstallation() (PandaInstallation, error) {
