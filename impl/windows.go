@@ -61,10 +61,5 @@ func (w *WindowsInstallation) StartInstall(jsonOptions string) error {
 func (w *WindowsInstallation) HasAdminPrivileges() bool {
 	// We're trying to open device that on Windows is accessible only with Admin privileges.
 	_, err := os.Open("\\\\.\\PHYSICALDRIVE0")
-
-	if err != nil {
-		return false
-	}
-
-	return true
+	return err == nil
 }
