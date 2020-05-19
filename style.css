@@ -1,0 +1,39 @@
+html, body {
+    margin: 0;
+    padding: 0;
+    background-color: black;
+}
+
+header {
+    color: white;
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 14px;
+}
+#app-region {
+    -webkit-app-region: drag;
+    height: 30px;
+    width: calc(100% - 116px);
+}
+#minimize {
+    float: left;
+}
+#exit {
+    float: left;
+}
+.toolbar-button {
+    padding: 4px 20px 4px 20px;
+    background-color: black;
+    transition: 0.5s linear background-color;
+    cursor: pointer;
+}
+.toolbar-button:hover {
+    background-color: red;
+    transition: 0.5s linear background-color;
+}
+
+main {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+#install {
+    background-color: #1c71bb;
+}
