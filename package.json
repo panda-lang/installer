@@ -1,0 +1,36 @@
+{
+  "name": "panda-installer",
+  "version": "1.0.0",
+  "description": "",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/panda-lang/installer.git"
+  },
+  "bugs": {
+    "url": "https://github.com/panda-lang/installer/issues"
+  },
+  "homepage": "https://github.com/panda-lang/installer#readme",
+  "main": "app.js",
+  "scripts": {
+    "start": "electron .",
+    "pack": "electron-builder --dir",
+    "dist": "electron-builder"
+  },
+  "build": {
+    "appId": "org.panda-lang.panda",
+    "win": {
+      "target": "portable"
+    },
+    "linux": {
+      "target": "rpm"
+    },
+    "mac": {
+      "target": "dmg",
+      "category": "public.app-category.developer-tools"
+    }
+  },
+  "devDependencies": {
+    "electron": "^9.0.0",
+    "electron-builder": "^22.6.1"
+  }
+}

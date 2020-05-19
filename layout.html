@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <title>Panda Installer</title>
+        <link href="https://unpkg.com/tailwindcss@^1.0/dist/tailwind.min.css" rel="stylesheet">
+        <link rel="stylesheet" type="text/css" href="style.css">
+        <script defer>
+            require('./renderer.js')
+        </script>
+    </head>
+    <body>
+        <header class="flex justify-end">
+            <div id="app-region" class="flex-none"></div>
+            <nav class="flex-initial">
+                <div id="minimize" class="toolbar-button"><div>🗕</div></div>
+                <div id="exit" class="toolbar-button">🗙</div>
+            </nav>
+        </header>
+        {{ main }}
+    </body>
+</html>
