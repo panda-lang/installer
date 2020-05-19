@@ -45,6 +45,9 @@ module.exports = {
   },
   devServer: {
     disableHostCheck: true,
-    host: 'localhost'
-  }
+    host: '0.0.0.0'
+  },
+  transpileDependencies: [
+    // 'vue-stepper-component'
+  ]
 }
