@@ -3,6 +3,7 @@ html, body {
     padding: 0;
     background-color: white;
     user-select: none;
+    -webkit-font-smoothing: antialiased;
 }
 
 header {
@@ -50,6 +51,8 @@ main {
     position: relative;
     background-color: #fff;
     z-index: 1;
+}
+.hero-padding {
     padding-top: 100px;
 }
 .hero::before {
@@ -75,6 +78,29 @@ main {
 }
 #install {
     background-color: #1c71bb;
+    transition: 0.5s linear background-color;
+}
+#install:hover {
+    background-color: #145996;
+    transition: 0.5s linear background-color;
+}
+.col li {
+    display: flex;
+}
+.icon-checkmark {
+    padding-top: 5px;
+    padding-right: 10px;
+    color: green;
+}
+.icon-restriction {
+    padding-top: 5px;
+    padding-right: 10px;
+    color: red;
+}
+.icon-star {
+    padding-top: 4px;
+    padding-right: 10px;
+    color: goldenrod;
 }
 footer {
     font-size: 0.6rem;

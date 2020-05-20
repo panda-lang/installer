@@ -1,16 +1,17 @@
 extends layout.pug
 
 block content
-    .container.h-64.flex
-        .pr-10.mt-1
-            img.border-2.rounded-full.mt-6(width="300px" height="auto" src="logo.png")
-        .pl-1
-            div
-                h1.inline-block.text-4xl.font-bold.bg-white.py-2.px-6 Panda
-            .pt-3
-                p.inline-block.text-3xl.font-thin.bg-white.py-2.px-6
-                    | Install 
-                    span.underline alpha 
-                    | version of Panda language on top of the JVM 🚀
-            .pt-3
-                button#install.text-2xl.text-white.px-6.py-2.outline-none Get Panda →
+    main.hero.flex.justify-center.items-center.pt-24
+        .container.h-64.flex
+            .pr-10.mt-1
+                img.border-2.rounded-full.mt-6(width="300px" height="auto" src="logo.png")
+            .pl-1
+                div
+                    h1.inline-block.text-4xl.font-bold.bg-white.py-2.px-6 Panda
+                .pt-3
+                    p.inline-block.text-3xl.font-thin.bg-white.py-2.px-6
+                        | Install 
+                        span.underline alpha 
+                        | version of Panda language on top of the JVM 🚀
+                .pt-4
+                    a#install.text-2xl.text-white.px-6.py-2.outline-none(href="./license.pug") Get Panda →

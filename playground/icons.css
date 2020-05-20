@@ -1,0 +1,69 @@
+@font-face {
+  font-family: 'icomoon';
+  src:  url('fonts/icomoon.eot?5npgyf');
+  src:  url('fonts/icomoon.eot?5npgyf#iefix') format('embedded-opentype'),
+    url('fonts/icomoon.ttf?5npgyf') format('truetype'),
+    url('fonts/icomoon.woff?5npgyf') format('woff'),
+    url('fonts/icomoon.svg?5npgyf#icomoon') format('svg');
+  font-weight: normal;
+  font-style: normal;
+  font-display: block;
+}
+
+[class^="icon-"], [class*=" icon-"] {
+  /* use !important to prevent issues with browser extensions that change fonts */
+  font-family: 'icomoon' !important;
+  speak: none;
+  font-style: normal;
+  font-weight: normal;
+  font-variant: normal;
+  text-transform: none;
+  line-height: 1;
+
+  /* Better Font Rendering =========== */
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+.icon-inbox-download:before {
+  content: "\e900";
+}
+.icon-cloud-download:before {
+  content: "\e901";
+}
+.icon-license:before {
+  content: "\e902";
+}
+.icon-clipboard-move:before {
+  content: "\e903";
+}
+.icon-award:before {
+  content: "\e904";
+}
+.icon-compass:before {
+  content: "\e905";
+}
+.icon-lightning:before {
+  content: "\e906";
+}
+.icon-face-moustache:before {
+  content: "\e907";
+}
+.icon-star:before {
+  content: "\e9d9";
+}
+.icon-restriction:before {
+  content: "\ea0e";
+}
+.icon-checkmark:before {
+  content: "\ea10";
+}
+.icon-checkbox-checked:before {
+  content: "\ea52";
+}
+.icon-checkbox:before {
+  content: "\ea53";
+}
+.icon-github:before {
+  content: "\eab0";
+}
