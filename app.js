@@ -16,7 +16,7 @@ app.whenReady().then(() => {
         }
     });
 
-    win.loadFile('index.html').then(() => {
+    win.loadFile('./frontend/dist/index.html').then(() => {
         win.show()
         win.moveTop()
     }).catch(e => console.error(e));
