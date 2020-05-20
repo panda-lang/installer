@@ -1,0 +1,20 @@
+html.h-screen
+    head
+        title Panda Installer
+        link(href="https://unpkg.com/tailwindcss@^1.0/dist/tailwind.min.css" rel="stylesheet")
+        link(rel="stylesheet" type="text/css" href="./style.css")
+        script.
+            require('./renderer.js')
+    body.h-screen.relative
+        header.flex.justify-end
+            div#app-region.flex-none
+            nav.flex-initial
+                div#minimize.toolbar-button
+                    div 🗕
+                div#exit.toolbar-button 🗙
+            </nav>
+        main.hero.flex.justify-center.items-center
+            block content
+        footer.absolute.w-full.h-4.text-center
+            p Copyright © 2020 The Panda Programming Language
+</html>

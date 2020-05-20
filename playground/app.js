@@ -1,8 +1,14 @@
 const { app, BrowserWindow } = require('electron')
 const path = require("path")
+const setupPug = require("electron-pug")
 
-app.whenReady().then(() => {
+app.whenReady().then(async () => {
     macIsDisabledSoLetsFixIt(app)
+
+    let pug = await setupPug({
+        pretty: true
+    }, {})
+    pug.on('error', err => console.error('electron-pug error', err))
 
     const win = new BrowserWindow({
         width: 860,
@@ -13,10 +19,11 @@ app.whenReady().then(() => {
         backgroundColor: '#000000',
         webPreferences: {
             nodeIntegration: true,
+            enableRemoteModule: true
         }
     });
 
-    win.loadFile('layout.html').then(() => {
+    win.loadURL(`file://${__dirname}/home.pug`).then(() => {
         win.show()
         win.moveTop()
     }).catch(e => console.error(e));
