@@ -74,7 +74,7 @@ main {
     z-index: 3;
 }
 .container {
-    height: 320px;
+    height: 335px;
 }
 #install {
     background-color: #1c71bb;
@@ -101,6 +101,20 @@ main {
     padding-top: 4px;
     padding-right: 10px;
     color: goldenrod;
+}
+svg * {
+    fill-opacity: 0;
+    transition: 5s ease fill-opacity;
+}
+svg.finished * {
+    fill-opacity: 1;
+}
+
+#install-progress {
+    transition: 3s ease border-color;
+}
+#loading {
+    color: purple;
 }
 footer {
     font-size: 0.6rem;

@@ -1,0 +1,11 @@
+extends layout.pug
+
+block content
+    main.hero.flex.justify-center.pt-12.pb-6.w-full
+        .container
+            .w-full.flex.justify-center
+                #install-progress.w-64.h-64.border-2.rounded-full
+            .w-full.text-center
+                p.text-white.text-xl.pt-6
+                    | Installing 
+                    span#loading

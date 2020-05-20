@@ -28,7 +28,7 @@ app.whenReady().then(async () => {
         win.moveTop()
     }).catch(e => console.error(e));
 
-    //win.webContents.openDevTools()
+    // win.webContents.openDevTools()
 });
 
 function macIsDisabledSoLetsFixIt(app) {

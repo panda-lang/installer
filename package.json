@@ -34,6 +34,8 @@
     "electron-builder": "^22.6.1"
   },
   "dependencies": {
-    "electron-pug": "^2.0.0"
+    "electron-pug": "^2.0.0",
+    "progressbar.js": "^1.1.0",
+    "vivus": "^0.4.5"
   }
 }

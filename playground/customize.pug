@@ -1,6 +1,22 @@
 extends layout.pug
 
 block content
-    main.hero.flex.justify-center.pt-20
-        .container
-            p.text-white Settings
+    main.hero.flex.justify-center.pt-16
+        .container.w-full
+            div
+                p.bg-white.px-6.py-2.inline-block.text-2xl.font-bold  Customize
+            div.bg-white.px-6.my-4.mb-6
+                div
+                    p.pt-3.font-bold Installation type
+                    div
+                        p.underline Local
+                        input.ml-2(type="radio") 
+                        label Install only for me
+                    div
+                        p.underline Global
+                        input.ml-2(type="radio") 
+                        label Install for everyone
+                    p.pt-3.pb-2.font-bold Installation path
+                    input#path.border.mb-4.w-full.p-1(type="text")
+            a#install.text-2xl.text-white.px-6.py-2.outline-none(href="./install.pug") Install →
+                    
