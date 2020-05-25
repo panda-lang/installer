@@ -1,4 +1,4 @@
-extends layout.pug
+extends ../layout.pug
 
 block content
     main.hero.flex.justify-center.pt-12.pb-6.w-full
@@ -9,3 +9,7 @@ block content
                 p.text-white.text-xl.pt-6
                     | Installing 
                     span#loading
+    script.
+        const install = require('./install.js')
+        install.render()
+        install.install()

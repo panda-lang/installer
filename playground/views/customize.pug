@@ -1,4 +1,4 @@
-extends layout.pug
+extends ../layout.pug
 
 block content
     main.hero.flex.justify-center.pt-16
@@ -21,4 +21,7 @@ block content
                     p.pt-3.pb-2.font-bold Installation path
                     input#path.border.mb-4.w-full.p-1(type="text")
             a#install.text-2xl.text-white.px-6.py-2.outline-none(href="./install.pug") Install →
+    script.
+        const customize = require('./customize.js')
+        customize.render()
                     

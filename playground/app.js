@@ -23,12 +23,12 @@ app.whenReady().then(async () => {
         }
     });
 
-    win.loadURL(`file://${__dirname}/home.pug`).then(() => {
+    win.loadURL(`file://${__dirname}/views/home.pug`).then(() => {
         win.show()
         win.moveTop()
     }).catch(e => console.error(e));
 
-    // win.webContents.openDevTools()
+    win.webContents.openDevTools()
 });
 
 function macIsDisabledSoLetsFixIt(app) {
