@@ -26,5 +26,24 @@ block content
                         li #[.icon-star] License and copyright notice
                         li #[.icon-star] State changes
             .pt-6
-                a#install.text-2xl.text-white.px-6.py-2.outline-none(href="./customize.pug") Accept →
-        
+                a.next.text-2xl.text-white.px-6.py-2.outline-none(href="./customize.pug") Accept →
+    style.
+        .col li {
+            display: flex;
+        }
+        .icon-checkmark {
+            padding-top: 5px;
+            padding-right: 10px;
+            color: green;
+        }
+        .icon-restriction {
+            padding-top: 5px;
+            padding-right: 10px;
+            color: red;
+        }
+        .icon-star {
+            padding-top: 4px;
+            padding-right: 10px;
+            color: goldenrod;
+        }
+                

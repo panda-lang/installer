@@ -13,3 +13,17 @@ block content
         const install = require('./install.js')
         install.render()
         install.install()
+    style.
+        svg * {
+            fill-opacity: 0;
+            transition: 6s ease fill-opacity;
+        }
+        svg.finished * {
+            fill-opacity: 1;
+        }
+        #install-progress {
+            transition: 3s ease border-color;
+        }
+        #loading {
+            color: purple;
+        }

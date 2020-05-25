@@ -2,7 +2,7 @@ extends ../layout.pug
 
 block content
     main.hero.flex.justify-center.pt-16
-        .container.w-full
+        form.container.w-full
             div
                 p.bg-white.px-6.py-2.inline-block.text-2xl.font-bold  Customize
             div.bg-white.px-6.my-4.mb-6
@@ -11,17 +11,23 @@ block content
                     div
                         p.underline Local
                         label
-                            input.ml-2(type="radio" name="install-type")
+                            input.ml-2(type="radio" name="install-type" required)
                             |  Install only for me
                     div
                         p.underline Global
                         label
-                            input.ml-2(type="radio" name="install-type")
+                            input.ml-2(type="radio" name="install-type" required)
                             |  Install for everyone
                     p.pt-3.pb-2.font-bold Installation path
-                    input#path.border.mb-4.w-full.p-1(type="text")
-            a#install.text-2xl.text-white.px-6.py-2.outline-none(href="./install.pug") Install →
+                    div.flex
+                        input#path.border.mb-4.w-full.p-1(type="text")
+                        button#choose-path.p-1.mb-4.px-4.ml-1.text-white Change
+            button#install.next.text-2xl.text-white.px-6.py-2.outline-none(type="submit" href="./install.pug") Install →
     script.
         const customize = require('./customize.js')
         customize.render()
+    style.
+        #choose-path {
+            background-color: #1c71bb
+        }
                     
