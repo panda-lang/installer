@@ -22,10 +22,15 @@ window.onload = () => {
 
             const directory = dialog.showOpenDialogSync(win, {
                 defaultPath: pathElement.value,
-                properties: [ "openDirectory" ]
+                properties: ["openDirectory"]
             })
 
             console.log(directory)
+
+            if (directory === undefined) {
+                return
+            }
+
             pathElement.value = directory
         })
     }
@@ -54,7 +59,7 @@ window.onload = () => {
         const vivus = new Vivus('install-progress', {
             file: './panda.svg',
             //start: 'autostart', 
-            type: 'delayed', 
+            type: 'delayed',
             duration,
             animTimingFunction: Vivus.EASE_OUT
         }, panda => {
