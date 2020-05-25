@@ -36,6 +36,7 @@
   "dependencies": {
     "electron-pug": "^2.0.0",
     "progressbar.js": "^1.1.0",
+    "regedit": "^3.0.3",
     "vivus": "^0.4.5"
   }
 }
