@@ -37,7 +37,6 @@ main {
     z-index: 2;
 }
 .hero > .container {
-    relative: _;
     margin: 177px _ 77px;
     z-index: 3;
 }

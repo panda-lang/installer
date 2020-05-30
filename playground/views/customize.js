@@ -6,21 +6,15 @@ module.exports = {
         const pathElement = document.getElementById('path')
         pathElement.value = __dirname
 
-        document.getElementById('choose-path').addEventListener('click', event => {
-            event.preventDefault()
-            
+        document.getElementById('choose-path').addEventListener('click', event => {            
             const directory = dialog.showOpenDialogSync(remote.getCurrentWindow(), {
                 defaultPath: pathElement.value,
                 properties: ['openDirectory']
             })
 
-            console.log(directory)
-
-            if (directory === undefined) {
-                return
+            if (directory != undefined) {
+                pathElement.value = directory
             }
-
-            pathElement.value = directory
         })
 
         document.getElementById('install').addEventListener('click', event => {
