@@ -1,7 +1,10 @@
 const Vivus = require('vivus')
+const electron = require('electron')
+const { ipcRenderer } = electron
 
 module.exports = {
     install() {
+        console.log(ipcRenderer.sendSync('get-settings'))
         // 1. get data from ui
         // 2. install and update progress bar
         // 3. done

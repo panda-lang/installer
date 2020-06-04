@@ -8,21 +8,22 @@ block content
             div.bg-white.px-6.my-4.mb-6
                 div
                     p.pt-3.font-bold Installation type
-                    div
-                        p.underline Local
-                        label
-                            input.ml-2(type="radio" name="install-type" required)
-                            |  Install only for me
-                    div
-                        p.underline Global
-                        label
-                            input.ml-2(type="radio" name="install-type" required)
-                            |  Install for everyone
+                    - 
+                        const types = {
+                            'Local': 'Install only for me',
+                            'Global': 'Install for everyone'
+                        }
+                    each message, type in types
+                        div
+                            p.underline= type
+                            label
+                                input.ml-2(type="radio" name="installation-type" value= type.toLowerCase() required)
+                                span.p-1 #{message}
                     p.pt-3.pb-2.font-bold Installation path
                     div.flex
                         input#path.border.mb-4.w-full.p-1(type="text")
                         button#choose-path.p-1.mb-4.px-4.ml-1.text-white Change
-            button#install.next.text-2xl.text-white.px-6.py-2.outline-none(type="submit" href="./install.pug") Install →
+            button#install.next.text-2xl.text-white.px-6.py-2.outline-none(type="submit") Install →
     script.
         const customize = require('./customize.js')
         customize.render()

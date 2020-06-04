@@ -1,5 +1,5 @@
-const remote = require('electron').remote
-const { dialog } = remote
+const electron = require('electron')
+const { remote, remote: { dialog }, ipcRenderer } = electron
 
 module.exports = {
     render() {
@@ -18,8 +18,14 @@ module.exports = {
         })
 
         document.getElementById('install').addEventListener('click', event => {
+            const settings = {
+                type: document.querySelector('input[name="installation-type"]:checked').value,
+                location: pathElement.value
+            }
+
+            ipcRenderer.send('set-settings', settings)
+            window.location.href = './install.pug'
             event.preventDefault()
-            window.location.href = './install.pug';
         })
     }
 }
