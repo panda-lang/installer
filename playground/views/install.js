@@ -4,10 +4,11 @@ const { ipcRenderer } = electron
 
 module.exports = {
     install() {
-        console.log(ipcRenderer.sendSync('get-settings'))
-        // 1. get data from ui
-        // 2. install and update progress bar
-        // 3. done
+        ipcRenderer.on('progress', (event, arg) => {
+            window.location.href = './done.pug'
+        })
+        
+        ipcRenderer.send('install')
     },
     render() {
         const installProgress = document.getElementById('install-progress')

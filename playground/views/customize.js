@@ -23,7 +23,7 @@ module.exports = {
                 location: pathElement.value
             }
 
-            ipcRenderer.send('set-settings', settings)
+            ipcRenderer.send('settings', settings)
             window.location.href = './install.pug'
             event.preventDefault()
         })

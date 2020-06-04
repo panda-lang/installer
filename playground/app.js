@@ -1,7 +1,6 @@
 const { app, BrowserWindow, ipcMain } = require('electron')
 const setupPug = require("electron-pug")
-
-let settings = {}
+const fs = require('fs')
 
 app.whenReady().then(async () => {
     let pug = await setupPug({ pretty: true }, {})
@@ -36,12 +35,20 @@ app.whenReady().then(async () => {
         window.moveTop()
     }).catch(e => console.error(e))
 
-    ipcMain.on('set-settings', (event, arg) => {
+    let settings = {}
+
+    ipcMain.on('settings', (event, arg) => {
         settings = arg
-        console.log(arg)
     })
-    ipcMain.on('get-settings', (event, arg) => {
-        event.returnValue = settings
+    ipcMain.on('install', (event, arg) => {
+        const directory = settings.location + '/panda'
+
+        if (!fs.existsSync(directory)) {
+            fs.mkdirSync(directory)
+            console.log('Created ' + directory)
+        }
+
+        event.reply('progress', 100)
     })
 
     window.webContents.openDevTools()
