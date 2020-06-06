@@ -2,14 +2,16 @@ const Vivus = require('vivus')
 const electron = require('electron')
 const { ipcRenderer } = electron
 
+const duration = 3000
+const vivus = new Vivus('install-progress', {
+    file: '../assets/images/panda.svg',
+    type: 'delayed',
+    start: 'manual',
+    duration,
+    animTimingFunction: Vivus.EASE_OUT
+}, panda => {})
+
 module.exports = {
-    install() {
-        ipcRenderer.on('progress', (event, arg) => {
-            window.location.href = './done.pug'
-        })
-        
-        ipcRenderer.send('install')
-    },
     render() {
         const installProgress = document.getElementById('install-progress')
 
@@ -31,28 +33,35 @@ module.exports = {
                 3: "/"
             })[toggle++]
         }, 350)
+    },
+    install() {
+        let started = false
+        let finished = false
+        
+        ipcRenderer.on('progress', (event, arg) => {
+            if (!started) {
+                started = (arg != 0) && (arg != 1)
+                return
+            }
+            
+            if (arg === 'done') {
+                window.location.href = './done.pug'
+                return
+            }
 
-        const duration = 3000
+            if (arg === 'error') {
+                return
+            }
 
-        const vivus = new Vivus('install-progress', {
-            file: '../assets/images/panda.svg',
-            //start: 'autostart', 
-            type: 'delayed',
-            duration,
-            animTimingFunction: Vivus.EASE_OUT
-        }, panda => {
-            //panda.el.classList.add('finished')
-        })
-
-        let counter = 0
-
-        setInterval(() => {
-            vivus.milestone = counter++
+            vivus.milestone = (duration * arg) * 2
             vivus.play()
-        }, 25)
 
-        setTimeout(() => {
-            document.querySelector('#install-progress svg').classList.add('finished')
-        }, 12000)
+            if (!finished && (arg > 0.7)) {
+                finished = true
+                document.querySelector('#install-progress svg').classList.add('finished')
+            }
+        })
+        
+        ipcRenderer.send('install')
     }
 }

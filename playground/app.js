@@ -1,6 +1,5 @@
-const { app, BrowserWindow, ipcMain } = require('electron')
+const { app, BrowserWindow, dialog, ipcMain } = require('electron')
 const setupPug = require("electron-pug")
-const fs = require('fs')
 
 app.whenReady().then(async () => {
     let pug = await setupPug({ pretty: true }, {})
@@ -30,6 +29,17 @@ app.whenReady().then(async () => {
         }
     })
 
+    process.on('uncaughtException', (err) => {
+        const messageBoxOptions = {
+            type: "error",
+            title: "Error in Main process",
+            message: "Something failed"
+        }
+
+        dialog.showMessageBox(messageBoxOptions);
+        throw err;
+    })
+
     window.loadURL(`file://${__dirname}/views/home.pug`).then(() => {
         window.show()
         window.moveTop()
@@ -41,14 +51,15 @@ app.whenReady().then(async () => {
         settings = arg
     })
     ipcMain.on('install', (event, arg) => {
-        const directory = settings.location + '/panda'
-
-        if (!fs.existsSync(directory)) {
-            fs.mkdirSync(directory)
-            console.log('Created ' + directory)
+        if (process.platform === 'win32') {
+            require('./windows').install(settings, event)
         }
-
-        event.reply('progress', 100)
+        else if (process.platform === 'linux') {
+            require('./linux').install(settings, event)
+        }
+        else if (process.platform.darwin === 'darwin') {
+            require('./macos').install(settings, event)
+        }
     })
 
     window.webContents.openDevTools()

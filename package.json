@@ -34,9 +34,15 @@
     "electron-builder": "^22.6.1"
   },
   "dependencies": {
+    "axios": "^0.19.2",
     "electron-pug": "^2.0.0",
+    "got": "^11.2.0",
     "progressbar.js": "^1.1.0",
     "regedit": "^3.0.3",
+    "request": "^2.88.2",
+    "request-progress": "^3.0.0",
+    "superagent": "^5.2.2",
+    "unzipper": "^0.10.11",
     "vivus": "^0.4.5"
   }
 }
