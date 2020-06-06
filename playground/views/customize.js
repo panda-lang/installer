@@ -1,10 +1,11 @@
-const electron = require('electron')
-const { remote, remote: { dialog }, ipcRenderer } = electron
+const { remote, remote: { dialog }, ipcRenderer } = require('electron')
+const path = require('path')
+const os = require('os')
 
 module.exports = {
     render() {
         const pathElement = document.getElementById('path')
-        pathElement.value = __dirname
+        pathElement.value = path.resolve(os.homedir(), 'AppData', 'Local')
 
         document.getElementById('choose-path').addEventListener('click', event => {            
             const directory = dialog.showOpenDialogSync(remote.getCurrentWindow(), {

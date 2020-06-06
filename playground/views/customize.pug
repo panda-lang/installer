@@ -8,17 +8,16 @@ block content
             div.bg-white.px-6.my-4.mb-6
                 div
                     p.pt-3.font-bold Installation type
-                    - 
-                        const types = {
-                            'Local': 'Install only for me',
-                            'Global': 'Install for everyone'
-                        }
-                    each message, type in types
-                        div
-                            p.underline= type
-                            label
-                                input.ml-2(type="radio" name="installation-type" value= type.toLowerCase() required selected)
-                                span.p-1 #{message}
+                    div
+                        p.underline Local
+                        label
+                            input.ml-2(type="radio" name="installation-type" value="local" required checked="checked")
+                            span.p-1 Install only for me
+                    div.text-gray-500
+                        p.underline Global (not supported for alpha releases)
+                        label.line-through
+                            input.ml-2(type="radio" name="installation-type" value="global" required disabled="disabled")
+                            span.p-1 Install for everyone
                     p.pt-3.pb-2.font-bold Installation path
                     div.flex
                         input#path.border.mb-4.w-full.p-1(type="text")
