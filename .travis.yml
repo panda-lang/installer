@@ -1,0 +1,8 @@
+language: node_js
+sudo: true
+
+node_js:
+  - 13
+
+notifications:
+  email: false
