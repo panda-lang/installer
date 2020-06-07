@@ -2,6 +2,7 @@
   "name": "panda-installer",
   "version": "1.0.0",
   "description": "",
+  "author": "dzikoysk <dzikoysk@dzikoysk.net>",
   "repository": {
     "type": "git",
     "url": "git+https://github.com/panda-lang/installer.git"
