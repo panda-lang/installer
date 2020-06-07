@@ -1,4 +1,4 @@
-extends ../layout.pug
+extends ../layouts/layout.pug
 
 block content
     main.hero.flex.justify-center.pt-24
@@ -13,5 +13,5 @@ block content
             .pt-4
                 a#close.next.text-2xl.text-white.px-6.py-2.outline-none(href="") Exit →
     script.
-        const done = require('./done.js')
+        const done = require('./success.js')
         done.render()

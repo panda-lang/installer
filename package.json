@@ -11,7 +11,7 @@
     "url": "https://github.com/panda-lang/installer/issues"
   },
   "homepage": "https://github.com/panda-lang/installer#readme",
-  "main": "./playground/app.js",
+  "main": "./src/app.js",
   "scripts": {
     "start": "electron .",
     "pack": "electron-builder --dir",

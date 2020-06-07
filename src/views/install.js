@@ -45,7 +45,7 @@ module.exports = {
             }
             
             if (arg === 'done') {
-                window.location.href = './done.pug'
+                window.location.href = './success.pug'
                 return
             }
 
@@ -56,7 +56,7 @@ module.exports = {
             vivus.milestone = (duration * arg) * 2
             vivus.play()
 
-            if (!finished && (arg >= 0.81)) {
+            if (!finished && (arg >= 0.95)) {
                 finished = true
                 document.querySelector('#install-progress svg').classList.add('finished')
             }

@@ -25,7 +25,7 @@ const toDefault = value => toEntry('REG_DEFAULT', value)
 module.exports = {
     install(settings, event) {
         (async () => {
-            event.reply('progress', 0.1)
+            event.reply('progress', 0.2)
             const directory = path.resolve(settings.location, 'panda-lang')
 
             if (!fs.existsSync(directory)) {
@@ -44,7 +44,7 @@ module.exports = {
                 fs.mkdirSync(pandaDirectory)
             }
 
-            event.reply('progress', 0.2)
+            event.reply('progress', 0.3)
             const logoFile = path.resolve(directory, 'logo.ico')
             fs.copyFileSync(path.resolve(__dirname, 'assets/images/panda.ico'), logoFile, err => { throw err })
 
@@ -52,22 +52,21 @@ module.exports = {
             adoptOpenJDKStream.on('downloadProgress', progress => event.reply('progress', 0.3 + (progress.percent / 2)))
 
             await pipeline(adoptOpenJDKStream, fs.createWriteStream(jreArchive))
-            event.reply('progress', 0.81)
-
             fs.createReadStream(jreArchive).pipe(unzipper.Extract({ path: jvmDirectory }));
-            event.reply('progress', 0.9)
+            event.reply('progress', 0.8)
 
             fs.unlinkSync(jreArchive)
             const versions = fs.readdirSync(jvmDirectory)
             const jreDirectory = path.resolve(jvmDirectory, versions.sort()[0])
 
-            event.reply('progress', 0.95)
+            event.reply('progress', 0.9)
             const latest = (await got(pandaRepository + '/latest')).body
             console.log(pandaRepository + '/' + latest + '/panda-' + latest + '-all.jar')
 
             const pandaStream = got.stream(pandaRepository + '/' + latest + '/panda-' + latest + '-all.jar')
             const pandaFile = path.resolve(pandaDirectory, 'panda-' + latest + '-all.jar')
             await pipeline(pandaStream, fs.createWriteStream(pandaFile))
+            event.reply('progress', 0.95)
 
             regedit.createKey([
                 'HKCU\\SOFTWARE\\Panda', 
@@ -155,7 +154,7 @@ module.exports = {
                 console.log(`stdout: ${stdout}`)
             })
 
-            setTimeout(() => event.reply('progress', 'done'), 1000) // :)
+            setTimeout(() => event.reply('progress', 'done'), 4000) // :)
         })()
     }
 }
