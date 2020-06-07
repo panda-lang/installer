@@ -2,6 +2,7 @@ const fs = require('fs')
 const path = require('path')
 const unzipper = require('unzipper')
 const regedit = require('regedit')
+const { exec } = require("child_process")
 
 const stream = require('stream')
 const { promisify } = require('util')
@@ -24,6 +25,7 @@ const toDefault = value => toEntry('REG_DEFAULT', value)
 module.exports = {
     install(settings, event) {
         (async () => {
+            event.reply('progress', 0.1)
             const directory = path.resolve(settings.location, 'panda-lang')
 
             if (!fs.existsSync(directory)) {
@@ -42,29 +44,30 @@ module.exports = {
                 fs.mkdirSync(pandaDirectory)
             }
 
+            event.reply('progress', 0.2)
             const logoFile = path.resolve(directory, 'logo.ico')
             fs.copyFileSync(path.resolve(__dirname, 'assets/images/panda.ico'), logoFile, err => { throw err })
 
             const adoptOpenJDKStream = got.stream(adoptOpenJDK)
-            adoptOpenJDKStream.on('downloadProgress', progress => event.reply('progress', 0.1 + (progress.percent / 2)))
+            adoptOpenJDKStream.on('downloadProgress', progress => event.reply('progress', 0.3 + (progress.percent / 2)))
 
             await pipeline(adoptOpenJDKStream, fs.createWriteStream(jreArchive))
-            event.reply('progress', 0.6)
+            event.reply('progress', 0.81)
 
             fs.createReadStream(jreArchive).pipe(unzipper.Extract({ path: jvmDirectory }));
-            event.reply('progress', 0.7)
+            event.reply('progress', 0.9)
 
             fs.unlinkSync(jreArchive)
             const versions = fs.readdirSync(jvmDirectory)
             const jreDirectory = path.resolve(jvmDirectory, versions.sort()[0])
 
+            event.reply('progress', 0.95)
             const latest = (await got(pandaRepository + '/latest')).body
             console.log(pandaRepository + '/' + latest + '/panda-' + latest + '-all.jar')
 
             const pandaStream = got.stream(pandaRepository + '/' + latest + '/panda-' + latest + '-all.jar')
             const pandaFile = path.resolve(pandaDirectory, 'panda-' + latest + '-all.jar')
             await pipeline(pandaStream, fs.createWriteStream(pandaFile))
-            event.reply('progress', 0.95)
 
             regedit.createKey([
                 'HKCU\\SOFTWARE\\Panda', 
@@ -87,7 +90,7 @@ module.exports = {
                 } 
             })
 
-            const exec = '"' + jreDirectory + '\\bin\\java.exe" -jar "' + pandaFile + '" "%1"'
+            const command = '"' + jreDirectory + '\\bin\\javaw.exe" -Xquickstart -jar "' + pandaFile + '" "%1"'
 
             regedit.putValue({
                 'HKCU\\SOFTWARE\\Panda': {
@@ -112,7 +115,7 @@ module.exports = {
                     'default': toDefault('Open')
                 },
                 'HKCU\\SOFTWARE\\Panda\\Capabilities\\shell\\open\\command': {
-                    'default': toDefault(exec)
+                    'default': toDefault(command)
                 },
                 'HKCU\\SOFTWARE\\Classes\\.panda': {
                     'default': toDefault('Panda.panda'),
@@ -128,7 +131,7 @@ module.exports = {
                     'default': toDefault('Open') 
                 },
                 'HKCU\\SOFTWARE\\Classes\\Panda.panda\\shell\\open\\command': {
-                    'default': toDefault(exec)
+                    'default': toDefault(command)
                 }
             }, err => { 
                 if (err != undefined) {
@@ -136,7 +139,22 @@ module.exports = {
                 }
             })
 
-            event.reply('progress', 1.0)
+            event.reply('progress', 1)
+
+            exec('ie4uinit.exe -show', (error, stdout, stderr) => {
+                if (error) {
+                    console.log(`error: ${error.message}`)
+                    return
+                }
+
+                if (stderr) {
+                    console.log(`stderr: ${stderr}`)
+                    return
+                }
+                
+                console.log(`stdout: ${stdout}`)
+            })
+
             setTimeout(() => event.reply('progress', 'done'), 1000) // :)
         })()
     }

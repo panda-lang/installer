@@ -56,7 +56,7 @@ module.exports = {
             vivus.milestone = (duration * arg) * 2
             vivus.play()
 
-            if (!finished && (arg > 0.7)) {
+            if (!finished && (arg >= 0.81)) {
                 finished = true
                 document.querySelector('#install-progress svg').classList.add('finished')
             }

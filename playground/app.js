@@ -62,5 +62,5 @@ app.whenReady().then(async () => {
         }
     })
 
-    window.webContents.openDevTools()
+    // window.webContents.openDevTools()
 })
