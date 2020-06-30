@@ -1,8 +1,10 @@
 const fs = require('fs')
 const path = require('path')
 const unzipper = require('unzipper')
-const regedit = require('regedit')
+
 const { exec } = require("child_process")
+const regedit = require('regedit')
+regedit.setExternalVBSLocation('resources/regedit/vbs')
 
 const stream = require('stream')
 const { promisify } = require('util')

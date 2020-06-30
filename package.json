@@ -29,7 +29,16 @@
     "mac": {
       "target": "dmg",
       "category": "public.app-category.developer-tools"
-    }
+    },
+    "extraResources": [
+      {
+        "from": "node_modules/regedit/vbs",
+        "to": "regedit/vbs",
+        "filter": [
+          "**/*"
+        ]
+      }
+    ]
   },
   "devDependencies": {
     "electron": "^9.0.0",
