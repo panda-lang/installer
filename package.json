@@ -21,7 +21,8 @@
   "build": {
     "appId": "org.panda-lang.panda",
     "win": {
-      "target": "portable"
+      "target": "portable",
+      "icon": "src/assets/images/panda.ico"
     },
     "linux": {
       "target": "rpm"
