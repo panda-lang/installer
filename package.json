@@ -46,7 +46,7 @@
     "electron-builder": "^22.6.1"
   },
   "dependencies": {
-    "axios": "^0.19.2",
+    "axios": "^0.21.1",
     "electron-pug": "^2.0.0",
     "got": "^11.2.0",
     "progressbar.js": "^1.1.0",
