@@ -11,7 +11,7 @@ const { promisify } = require('util')
 const got = require('got')
 const pipeline = promisify(stream.pipeline)
 
-const adoptOpenJDK = 'https://github.com/AdoptOpenJDK/openjdk14-binaries/releases/download/jdk-14.0.1%2B7.1_openj9-0.20.0/OpenJDK14U-jre_x64_windows_openj9_14.0.1_7_openj9-0.20.0.zip'
+const adoptOpenJDK = 'https://github.com/AdoptOpenJDK/openjdk15-binaries/releases/download/jdk-15.0.2%2B7_openj9-0.24.0/OpenJDK15U-jre_x64_windows_openj9_15.0.2_7_openj9-0.24.0.zip'
 const pandaRepository = 'https://repo.panda-lang.org/releases/org/panda-lang/panda'
 
 const toEntry = (type, value) => {
@@ -28,13 +28,16 @@ module.exports = {
     install(settings, event) {
         (async () => {
             event.reply('progress', 0.2)
+
+            // Prepare structure
+            
             const directory = path.resolve(settings.location, 'panda-lang')
 
             if (!fs.existsSync(directory)) {
                 fs.mkdirSync(directory)
             }
-
-            const jreArchive = path.resolve(directory, 'jre14.zip')
+            
+            const jreArchive = path.resolve(directory, 'jre15.zip')
             const jvmDirectory = path.resolve(directory, 'jvm')
             const pandaDirectory = path.resolve(directory, 'panda')
             
@@ -47,8 +50,13 @@ module.exports = {
             }
 
             event.reply('progress', 0.3)
+
+            // Copy file icon
+
             const logoFile = path.resolve(directory, 'logo.ico')
             fs.copyFileSync(path.resolve(__dirname, 'assets/images/panda.ico'), logoFile, err => { throw err })
+
+            // Download JVM
 
             const adoptOpenJDKStream = got.stream(adoptOpenJDK)
             adoptOpenJDKStream.on('downloadProgress', progress => event.reply('progress', 0.3 + (progress.percent / 2)))
@@ -62,6 +70,9 @@ module.exports = {
             const jreDirectory = path.resolve(jvmDirectory, versions.sort()[0])
 
             event.reply('progress', 0.9)
+
+            // Download latest version of Panda
+
             const latest = (await got(pandaRepository + '/latest')).body
             console.log(pandaRepository + '/' + latest + '/panda-' + latest + '-all.jar')
 
@@ -69,6 +80,42 @@ module.exports = {
             const pandaFile = path.resolve(pandaDirectory, 'panda-' + latest + '-all.jar')
             await pipeline(pandaStream, fs.createWriteStream(pandaFile))
             event.reply('progress', 0.95)
+
+            // Prepare commands
+
+            const commandDirectory = '"' + jreDirectory + '\\bin\\'
+            const command = commandDirectory + '%target%" -Xquickstart -jar "' + pandaFile + '" %args%'
+
+            // Add panda command to PATH
+
+            const cmdFile = path.resolve(pandaDirectory, 'panda.cmd')
+            fs.writeFileSync(cmdFile, `
+            @echo off
+            ${command.replace('%target%', 'java.exe').replace('%args%', '%*')}
+            `)
+            
+            const errorHandler = err => { 
+                if (err != undefined) {
+                    throw err 
+                }
+            }
+
+            regedit.list(['HKCU\\Environment']).on('data', function (entry) {
+                const environmentPath = entry.data.values['Path'].value
+
+                if (environmentPath && !environmentPath.includes(pandaDirectory)) {
+                    regedit.putValue({
+                        'HKCU\\Environment': {
+                            'Path': {
+                                type: 'REG_EXPAND_SZ',
+                                value: environmentPath + ';' + pandaDirectory
+                            }
+                        }
+                    }, errorHandler)
+                }   
+            })
+
+            // Register Panda files in Windows Registry
 
             regedit.createKey([
                 'HKCU\\SOFTWARE\\Panda', 
@@ -85,13 +132,11 @@ module.exports = {
                 'HKCU\\SOFTWARE\\Classes\\Panda.panda\\shell',
                 'HKCU\\SOFTWARE\\Classes\\Panda.panda\\shell\\open',
                 'HKCU\\SOFTWARE\\Classes\\Panda.panda\\shell\\open\\command',
-            ], err => { 
-                if (err != undefined) {
-                    throw err
-                } 
-            })
-
-            const command = '"' + jreDirectory + '\\bin\\javaw.exe" -Xquickstart -jar "' + pandaFile + '" "%1"'
+            ], errorHandler)
+            
+            const openCommand = command
+                .replace('%target%', 'javaw.exe')
+                .replace('%args%', '"%1"')
 
             regedit.putValue({
                 'HKCU\\SOFTWARE\\Panda': {
@@ -116,7 +161,7 @@ module.exports = {
                     'default': toDefault('Open')
                 },
                 'HKCU\\SOFTWARE\\Panda\\Capabilities\\shell\\open\\command': {
-                    'default': toDefault(command)
+                    'default': toDefault(openCommand)
                 },
                 'HKCU\\SOFTWARE\\Classes\\.panda': {
                     'default': toDefault('Panda.panda'),
@@ -132,17 +177,15 @@ module.exports = {
                     'default': toDefault('Open') 
                 },
                 'HKCU\\SOFTWARE\\Classes\\Panda.panda\\shell\\open\\command': {
-                    'default': toDefault(command)
+                    'default': toDefault(openCommand)
                 }
-            }, err => { 
-                if (err != undefined) {
-                    throw err 
-                }
-            })
+            }, errorHandler)
 
             event.reply('progress', 1)
 
-            exec('ie4uinit.exe -show', (error, stdout, stderr) => {
+            // Refresh system
+
+            const commandHandler = (error, stdout, stderr) => {
                 if (error) {
                     console.log(`error: ${error.message}`)
                     return
@@ -154,7 +197,12 @@ module.exports = {
                 }
                 
                 console.log(`stdout: ${stdout}`)
-            })
+            }
+
+            exec('ie4uinit.exe -show', commandHandler)
+            exec('taskkill /f /im explorer.exe && explorer.exe', commandHandler)
+
+            // End of installation
 
             setTimeout(() => event.reply('progress', 'done'), 4000) // :)
         })()

@@ -29,16 +29,19 @@ app.whenReady().then(async () => {
         }
     })
 
-    process.on('uncaughtException', (err) => {
+    const errorDialog = (error) => {
         const messageBoxOptions = {
             type: "error",
             title: "Error in Main process",
             message: "Something failed"
         }
 
-        dialog.showMessageBox(messageBoxOptions);
-        throw err;
-    })
+        dialog.showMessageBox(messageBoxOptions).then(value => {
+            throw error
+        })
+    }
+
+    process.on('uncaughtException', errorDialog)
 
     window.loadURL(`file://${__dirname}/views/home.pug`).then(() => {
         window.show()
@@ -51,14 +54,18 @@ app.whenReady().then(async () => {
         settings = arg
     })
     ipcMain.on('install', (event, arg) => {
-        if (process.platform === 'win32') {
-            require('./windows').install(settings, event)
-        }
-        else if (process.platform === 'linux') {
-            require('./linux').install(settings, event)
-        }
-        else if (process.platform.darwin === 'darwin') {
-            require('./macos').install(settings, event)
+        try {
+            if (process.platform === 'win32') {
+                require('./windows').install(settings, event)
+            }
+            else if (process.platform === 'linux') {
+                require('./linux').install(settings, event)
+            }
+            else if (process.platform.darwin === 'darwin') {
+                require('./macos').install(settings, event)
+            }
+        } catch (error) {
+            errorDialog(error)
         }
     })
 
