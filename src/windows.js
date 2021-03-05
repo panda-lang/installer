@@ -199,8 +199,15 @@ module.exports = {
                 console.log(`stdout: ${stdout}`)
             }
 
-            exec('ie4uinit.exe -show', commandHandler)
-            exec('taskkill /f /im explorer.exe && explorer.exe', commandHandler)
+            const updatePathCommand = `
+            Add-Type -Namespace Win32 -Name NativeMethods -MemberDefinition @"
+                [DllImport("user32.dll", SetLastError = true, CharSet = CharSet.Auto)]
+                public static extern IntPtr SendMessageTimeout(IntPtr hWnd, uint Msg, UIntPtr wParam, string lParam, 
+                                                               uint fuFlags, uint uTimeout, out UIntPtr lpdwResult);
+            "@;
+            [void] ([Win32.Nativemethods]::SendMessageTimeout([IntPtr] 0xFFFF, 0x1A, [UIntPtr]::Zero, "Environment", 2, 2000, [ref] [UIntPtr]::Zero))
+            `
+            exec(`powershell -Command '${updatePathCommand}'`)
 
             // End of installation
 
