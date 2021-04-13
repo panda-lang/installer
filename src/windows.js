@@ -12,7 +12,7 @@ const got = require('got')
 const pipeline = promisify(stream.pipeline)
 
 const adoptOpenJDK = 'https://github.com/AdoptOpenJDK/openjdk15-binaries/releases/download/jdk-15.0.2%2B7_openj9-0.24.0/OpenJDK15U-jre_x64_windows_openj9_15.0.2_7_openj9-0.24.0.zip'
-const pandaRepository = 'https://repo.panda-lang.org/releases/org/panda-lang/panda'
+const pandaRepository = 'https://repo.panda-lang.org/releases/org/panda-lang/panda-standalone'
 
 const toEntry = (type, value) => {
     return {
@@ -74,10 +74,10 @@ module.exports = {
             // Download latest version of Panda
 
             const latest = (await got(pandaRepository + '/latest')).body
-            console.log(pandaRepository + '/' + latest + '/panda-' + latest + '-all.jar')
+            console.log(pandaRepository + '/' + latest + '/panda-standalone-' + latest + '-all.jar')
 
-            const pandaStream = got.stream(pandaRepository + '/' + latest + '/panda-' + latest + '-all.jar')
-            const pandaFile = path.resolve(pandaDirectory, 'panda-' + latest + '-all.jar')
+            const pandaStream = got.stream(pandaRepository + '/' + latest + '/panda-standalone-' + latest + '-all.jar')
+            const pandaFile = path.resolve(pandaDirectory, 'panda-standalone-' + latest + '-all.jar')
             await pipeline(pandaStream, fs.createWriteStream(pandaFile))
             event.reply('progress', 0.95)
 
