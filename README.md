@@ -1,4 +1,4 @@
-# Installer [![Build Status](https://travis-ci.com/panda-lang/installer.svg?branch=master)](https://travis-ci.com/panda-lang/installer)
+# Installer
 Install jvm-based version of Panda using a fancy installer. 
 The installer downloads the latest version of Panda and creates necessary file associations. 
 It also delivers the latest version of JRE used by Panda.

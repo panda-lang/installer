@@ -11,8 +11,9 @@ const { promisify } = require('util')
 const got = require('got')
 const pipeline = promisify(stream.pipeline)
 
-const adoptOpenJDK = 'https://github.com/AdoptOpenJDK/openjdk15-binaries/releases/download/jdk-15.0.2%2B7_openj9-0.24.0/OpenJDK15U-jre_x64_windows_openj9_15.0.2_7_openj9-0.24.0.zip'
+const bellSoftJre17 = 'https://download.bell-sw.com/java/17.0.1+12/bellsoft-jre17.0.1+12-windows-amd64.zip'
 const pandaRepository = 'https://repo.panda-lang.org/releases/org/panda-lang/panda-standalone'
+const latestVersionEndpoint = 'https://repo.panda-lang.org/api/maven/latest/releases/org/panda-lang/panda-standalone'
 
 const toEntry = (type, value) => {
     return {
@@ -37,7 +38,7 @@ module.exports = {
                 fs.mkdirSync(directory)
             }
             
-            const jreArchive = path.resolve(directory, 'jre15.zip')
+            const jreArchive = path.resolve(directory, 'jre17.zip')
             const jvmDirectory = path.resolve(directory, 'jvm')
             const pandaDirectory = path.resolve(directory, 'panda')
             
@@ -58,22 +59,19 @@ module.exports = {
 
             // Download JVM
 
-            const adoptOpenJDKStream = got.stream(adoptOpenJDK)
-            adoptOpenJDKStream.on('downloadProgress', progress => event.reply('progress', 0.3 + (progress.percent / 2)))
-
-            await pipeline(adoptOpenJDKStream, fs.createWriteStream(jreArchive))
+            const jdkStream = got.stream(bellSoftJre17)
+            jdkStream.on('downloadProgress', progress => event.reply('progress', 0.3 + (progress.percent / 2)))
+            await pipeline(jdkStream, fs.createWriteStream(jreArchive))
             fs.createReadStream(jreArchive).pipe(unzipper.Extract({ path: jvmDirectory }));
             event.reply('progress', 0.8)
-
             fs.unlinkSync(jreArchive)
             const versions = fs.readdirSync(jvmDirectory)
             const jreDirectory = path.resolve(jvmDirectory, versions.sort()[0])
-
             event.reply('progress', 0.9)
 
             // Download latest version of Panda
 
-            const latest = (await got(pandaRepository + '/latest')).body
+            const latest = (await got(latestVersionEndpoint)).body
             console.log(pandaRepository + '/' + latest + '/panda-standalone-' + latest + '-all.jar')
 
             const pandaStream = got.stream(pandaRepository + '/' + latest + '/panda-standalone-' + latest + '-all.jar')
